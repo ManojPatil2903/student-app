@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+
+  # ── MySQL Database ──────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: student-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: studentdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - student-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Spring Boot App ─────────────────────────────────
+  app:
+    build: .
+    container_name: student-app
+    ports:
+      - "8080:8080"
+    environment:
+      spring.datasource.url: jdbc:mysql://mysql:3306/studentdb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+      spring.datasource.username: root
+      spring.datasource.password: root123
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - student-network
+
+networks:
+  student-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
