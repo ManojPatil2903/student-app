@@ -33,6 +33,16 @@ pipeline{
             }
         }
 
+        stage('Acceptance Testing') {
+            steps {
+                sh '''
+                echo "Acceptance Testing Started"
+                mvn verify
+                echo "Acceptance Testing Completed"
+                '''
+            }
+        }
+
          
 
     }
