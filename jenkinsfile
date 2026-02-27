@@ -1,5 +1,9 @@
 pipeline{
     agent any
+
+    parameters {
+        string(name: 'APP_VERSION', description: 'Enter the application version to be built', defaultValue: '1.0.0')
+    }
     stages{
         stage('Checkout Code From GIT') {
             steps {
@@ -50,8 +54,19 @@ pipeline{
             steps{
                 sh '''
                 echo "Docker Image Build Started"
-                docker build -t student-app:latest .
+                docker build -t student-app:${APP_VERSION} .
                 echo "Docker Image Build Completed"
+                '''
+            }
+        }
+
+        stage('docker comose up'){
+
+            steps{
+                sh '''
+                echo "Docker Container Starting"
+                docker compose up -d
+                echo "Docker Container Started"
                 '''
             }
         }
