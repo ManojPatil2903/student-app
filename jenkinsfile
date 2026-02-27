@@ -35,8 +35,9 @@ pipeline{
 
         stage('Acceptance Testing') {
             steps {
-                sh '''
                 input 'Proceed with Acceptance Testing?'
+                sh '''
+                
                 echo "Acceptance Testing Started"
                 mvn verify
                 echo "Acceptance Testing Completed"
