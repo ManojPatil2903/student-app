@@ -11,7 +11,17 @@ pipeline{
 
                '''
             }
-        }        
+        } 
+
+        stage('Build MVN Application'){
+            steps{
+                sh '''
+                echo "Maven Build Started"
+                mvn clean install
+                echo "Maven Build Completed"
+                '''
+            }
+        }       
 
     }
 
