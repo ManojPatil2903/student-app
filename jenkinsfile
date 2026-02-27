@@ -21,7 +21,19 @@ pipeline{
                 echo "Maven Build Completed"
                 '''
             }
-        }       
+        }
+
+        stage('Executing test cases') {
+            steps {
+                sh '''
+                echo "Test Cases Execution Started"
+                mvn test
+                echo "Test Cases Execution Completed"
+                '''
+            }
+        }
+
+         
 
     }
 
