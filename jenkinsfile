@@ -60,17 +60,7 @@ pipeline{
             }
         }
 
-        stage('docker comose up'){
-
-            steps{
-                sh '''
-                echo "Docker Container Starting"
-                docker compose up -d
-                echo "Docker Container Started"
-                '''
-            }
-        }
-
+        
         
 
          
