@@ -45,6 +45,19 @@ pipeline{
             }
         }
 
+        stage('Building docker image'){
+
+            steps{
+                sh '''
+                echo "Docker Image Build Started"
+                docker build -t student-app:latest .
+                echo "Docker Image Build Completed"
+                '''
+            }
+        }
+
+        
+
          
 
     }
